@@ -27,3 +27,11 @@ def ci_crowdsourcing():
 @bp.route("/modules/ci_competition")
 def ci_competition():
     return add_security_headers(render_template("modules/ci_competition.html"))
+
+@bp.route("/modules/about")
+def about():
+    return add_security_headers(render_template("/modules/about.html"))
+
+@bp.route("/modules/module_0")
+def module_0():
+    return add_security_headers(render_template("/modules/module_0.html"))

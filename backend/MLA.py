@@ -17,6 +17,7 @@ from sklearn.naive_bayes import ComplementNB
 from sklearn.cluster import KMeans
 from sklearn.linear_model import LogisticRegression
 from sklearn.linear_model import Perceptron
+from sklearn.linear_model import LinearRegression
 
 class MLA:
     def __init__(self, name, definition, parameters):
@@ -426,7 +427,7 @@ Parameters = {"Parameter_0":Parameter_0, "Parameter_1":Parameter_1,"Parameter_2"
 
 k_mean_algorithm = MLA(Name, Definition, Parameters)
 
-#list_MLAs.append(k_mean_algorithm)
+list_MLAs.append(k_mean_algorithm)
 
 # Bernoulli Naive Bayes Classifier
 Name = "BernoulliNB"
@@ -791,6 +792,48 @@ Perceptron_algorithm = MLA(Name, Definition, Parameters)
 
 list_MLAs.append(Perceptron_algorithm)
 
+Name = "LinearRegression"
+Definition = ["LinearRegression fits a linear model with coefficients w = (w1, …, wp) to minimize the residual sum of squares between the observed targets in the dataset, and the targets predicted by the linear approximation."]
+Parameter_0 =  {
+    "Name":"fit_intercept", 
+    "Type": ["bool"], 
+    "Default_option":True, 
+    "Default_value":True, 
+    "Possible":[True, False], 
+    "Definition":"Whether to calculate the intercept for this model. \n If set to False, no intercept will be used in calculations (i.e. data is expected to be centered)."
+    }
+
+Parameter_1 =  {"Name":"copy_X", 
+                "Type": ["bool"], 
+                "Default_option": True, 
+                "Default_value": True, 
+                "Possible":[True, False], 
+               "Definition":"If True, X will be copied; else, it may be overwritten."
+               }
+
+
+Parameter_2 =  {"Name":"positive", 
+                "Type": ["bool"], 
+                "Default_option": False, 
+                "Default_value": False, 
+                "Possible":[True, False], 
+               "Definition":"When set to True, forces the coefficients to be positive. This option is only supported for dense arrays."
+               }
+
+Parameter_3 = {"Name":"n_jobs", 
+               "Type": ["int_or_null"],
+                "Default_option":None,
+                "Default_value":None, 
+                "Possible":["int"],
+                "Definition":"The number of jobs to use for the computation. \n This will only provide speedup in case of sufficiently large problems, that is if firstly n_targets > 1 and secondly X is sparse or if positive is set to True. \n None means 1 unless in a joblib.parallel_backend context. -1 means using all processors. See Glossary for more details."}
+
+
+Parameters = {"Parameter_0":Parameter_0, "Parameter_1":Parameter_1, "Parameter_2":Parameter_2, "Parameter_3" : Parameter_3 }
+
+LinearRegression_algorithm = MLA(Name, Definition, Parameters)
+
+list_MLAs.append(LinearRegression_algorithm)
+
 
 def getMLAs():
     return list_MLAs
@@ -1065,6 +1108,12 @@ def createModel(data):
                                    validation_fraction = settings["Parameter_10"],
                                    n_iter_no_change = settings["Parameter_11"],
                                    warm_start = settings["Parameter_12"])
-          
         
+    elif data["MLalgorithm"] == "LinearRegression":
+        model = LinearRegression(fit_intercept = settings['Parameter_0'],
+                                   copy_X = settings["Parameter_1"],
+                                   positive = settings["Parameter_2"],
+                                   n_jobs = settings["Parameter_3"]
+                                   )
+
     return model, settings
