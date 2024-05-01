@@ -35,3 +35,15 @@ def about():
 @bp.route("/modules/module_0")
 def module_0():
     return add_security_headers(render_template("/modules/module_0.html"))
+
+@bp.route("/modules/module_1")
+def module_1():
+    return add_security_headers(render_template("/modules/module_1.html"))
+
+@bp.route("/modules/module_2")
+def module_2():
+    return add_security_headers(render_template("/modules/module_2.html"))
+
+@bp.route("/modules/module_3")
+def module_3():
+    return add_security_headers(render_template("/modules/module_3.html"))

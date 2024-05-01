@@ -136,6 +136,7 @@ def Split(data):
                         homogeneity = homogeneity_score(y, kmeans_labels)
                         completeness = completeness_score(y, kmeans_labels)
                         v_measure = v_measure_score(y, kmeans_labels)
+                        logging.debug("declared_one")
             else:
                 x_train = X
             
@@ -161,7 +162,7 @@ def Split(data):
                 except Exception as e:
                     weight = "weight not available"
                     
-                logging.debug(data['MLalgorithm'] )
+                # logging.debug(data['MLalgorithm'] )
                 Accuracy = "This metric needs split more than 0.0"
                 F1 = "This metric needs split more than 0.0"
                 F1_micro = "This metric needs split more than 0.0"
@@ -403,7 +404,7 @@ def K_Fold(data):
         number_of_kfold = int(data[data['validation'] + "_Input"])
         kf.get_n_splits(X)
 
-        if data["regression"] == "false":
+        if data["metrics_catagory"] == "classification":
             acc_list = []
             prec_list = []
             prec_micro_list = []

@@ -195,10 +195,10 @@
             <h4 class="mb-2 max-w-xs font-medium flex flex-row">
                 <span class="mr-2">Project Name</span>
                 <div class="flex flex-row">
-                    <div class="popup flex flex-row space-x-2" onclick="popupInformation('Experiment_Name_Info')">
+                    <!-- <div class="popup flex flex-row space-x-2" onclick="popupInformation('Experiment_Name_Info')">
                         <img src="../../static/Images/information_icon.png" class="popup" width="20" height="20" />
                         <span class="popuptext" id="Experiment_Name_Info"> Define the purpose or objective of your project.</span>
-                    </div>
+                    </div> -->
 
             </h4>
             <!-- information to display for the name of the project -->
@@ -215,10 +215,10 @@
                     <h3 class="mb-2 font-medium mr-2">Goal and Scope</h3>
                     <!-- information to display for the definition of the project -->
                     <div class="popup" onclick="popupInformation('Experiment_Definition_Info')">
-                        <img src="../../static/Images/information_icon.png" width="20" height="20" />
+                        <!-- <img src="../../static/Images/information_icon.png" width="20" height="20" />
                         <span class="popuptext" id="Experiment_Definition_Info">Define the purpose and boundaries of
                             your project.
-                        </span>
+                        </span> -->
                     </div>
                 </div>
 
@@ -250,10 +250,10 @@
                         <h3 class="mr-2">File </h3>
                         <!-- information to display for the loadable dataset -->
                         <div class="popup" onclick="popupInformation('Experiment_Dataset_Info')">
-                            <img src="../../static/Images/information_icon.png" width="20" height="20" />
+                            <!-- <img src="../../static/Images/information_icon.png" width="20" height="20" />
                             <span class="popuptext" id="Experiment_Dataset_Info">
                             Upload or choose your CSV file
-                            </span>
+                            </span> -->
                         </div>
                     </div>
 
@@ -303,7 +303,8 @@
                     <label>Kernel Density Estimates (KDE) ind value. (optional)</label>
                     <div class="popup" onclick="popupInformation('KDE_IND_Info')">
                         <img src="../../static/Images/information_icon.png" width="20" height="20" />
-                        <span style="white-space: pre-wrap" class="popuptext" id="KDE_IND_Info">A kernel density
+                        <span style="" class="popuptext" id="KDE_IND_Info">A KDE plot visualizes data distribution using a continuous probability density curve, similar to a histogram.<br> The ind parameter specifies the number of points at which the estimated density function should be evaluated.</span>
+                        <!-- <span style="white-space: pre-wrap" class="popuptext" id="KDE_IND_Info">A kernel density
                             estimate (KDE) plot is a method for visualizing the distribution of observations in a
                             dataset, analogous to a histogram. KDE represents the data using a continuous probability
                             density curve in one or more dimensions.<br><br>Relative to a histogram, KDE can produce a
@@ -314,7 +315,7 @@
                             estimated PDF. If None (default), 1000 equally spaced points are used. If ind is a NumPy
                             array, the KDE is evaluated at the points passed. If ind is an integer, ind number of
                             equally spaced points are used.\n\nGiving an int value will calculate the KDE for all
-                            columns when considering each class.</span>
+                            columns when considering each class.</span> -->
                     </div>
                     <input id="kde_ind" class="w-64 px-2 py-1 border border-gray-400 rounded-lg bg-white" type="text"
                         name="kde_ind"> <br>
@@ -396,7 +397,7 @@
 
         <!-- Preprocess section-->
         <div class="border-b border-gray-400 p-2">
-            <h1 class="mb-2 font-bold text-xl">Method</h1>
+            <h1 class="mb-2 font-bold text-xl"> Method </h1>
             <form id="methodologyForm">
 
                 <!-- Methodology section 1 -->
@@ -655,12 +656,12 @@
 
                 <form id="resultForm"> <!-- Takes you to displayResults function-->
                     <!-- <h2 class="mb-2 text-lg">Regression</h2> -->
+                    <div x-data="{ open: 1 }">
 
-
-                    <input type="radio" name="regression" id="classificationRadio" value="classification" checked>
+                    <input type="radio" name="regression" id="classificationRadio" value="classification" checked @click="open = 1">
                     Classification<br>
                     <!-- <h2 class="mb-2 text-lg">Classification</h2> -->
-                    <div id="checkboxesContainer">
+                    <div id="checkboxesContainer" x-show="open === 1">
                         <div class="border border-gray-300 rounded-md shadow-sm p-2 mb-1 inline-block ml-1">
                             <input type="checkbox" id=Met_WEIGHT1 name="Met_WEIGHT" value=Met_WEIGHT1 checked> <label
                                 for=Met_WEIGHT>Weight</label>
@@ -672,8 +673,6 @@
                                 for=Met_ACC1>Accuracy</label>
                         </div>
                         <br>
-
-
                         <div class="border border-gray-300 rounded-md shadow-sm p-2 mb-1 inline-block ml-1">
                             <input type="checkbox" id=Met_Precision name="Met_Precision" value=Met_Precision checked>
                             <label for=Met_Precision>Precision</label>
@@ -719,8 +718,9 @@
                         </div><br>
                     </div>
 
-                    <input type="radio" name="regression" id="regressionRadio" value="regression"> Regression<br>
-                    <div id="regressionContainer">
+
+                    <input type="radio" name="regression" id="regressionRadio" value="regression" @click="open = 2"> Regression<br>
+                    <div id="regressionContainer" x-show="open === 2">
                         <div class="border border-gray-300 rounded-md shadow-sm p-2 mb-1 inline-block ml-1">
                             <input type="checkbox" id=Met_WEIGHT2 name="Met_WEIGHT2" value=Met_WEIGHT2> <label
                                 for=Met_WEIGHT2>Weight</label>
@@ -752,8 +752,8 @@
                         <input type="checkbox" id=Met_Recall_Macro name="Met_Recall_Macro" value=Met_Recall_Macro checked> <label for=Met_Recall_Macro>Recall (Macro)</label><br>
                         <input type="checkbox" id=Met_CM name="Met_CM" value=Met_CM checked> <label for=Met_CM>Confusion Matrix</label><br> -->
 
-                    <input type="radio" name="regression" id="clusteringRadio" value="clustering"> Clustering<br>
-                    <div id="clustering">
+                    <input type="radio" name="regression" id="clusteringRadio" value="clustering" @click="open = 3"> Clustering<br>
+                    <div id="clustering" x-show="open === 3">
                         <div class="border border-gray-300 rounded-md shadow-sm p-2 mb-1 inline-block ml-1">
                             <input type="checkbox" id=Met_silhouette name="Met_silhouette" value=Met_silhouette> <label
                                 for=Met_silhouette>Silhouette</label>
@@ -767,6 +767,9 @@
                             <input type="checkbox" id=Met_davies name="Met_davies" value=Met_davies> <label
                                 for=Met_davies>Davies</label>
                         </div><br>
+                        <hr>
+                        <p>Requires ground truth label</p>
+                        <hr>
                         <div class="border border-gray-300 rounded-md shadow-sm p-2 mb-1 inline-block ml-1">
                             <input type="checkbox" id=Met_ari name="Met_ari" value=Met_ari> <label
                                 for=Met_ari>Ari</label>
@@ -784,12 +787,14 @@
 
                     </div>
 
+                    
                     <button class="px-2 px-1.5 rounded-lg bg-white border border-gray-400" onclick="updateMetrics()">
                         Update metrics
                     </button>
 
                 </form>
             </div>
+        </div>
         </div>
 
         <!-- Results section-->
